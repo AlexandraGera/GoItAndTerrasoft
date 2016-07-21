@@ -12,7 +12,6 @@ namespace Homework3_1
 
             Console.Write("Enter your login:");
             string login = Console.ReadLine();
-
             //поверка логина
             for (int i = 0; i < arrayLogin.Length; i++)
             {
@@ -22,36 +21,41 @@ namespace Homework3_1
                     {
                         Console.Write("Enter your password:");
                         string password = Console.ReadLine();
-
                         //проверка пароля
                         if (password == arrayPassword[i])
                         {
                             //проверка роли
-                            if (arrayRole[i] == "Admin")
+                            switch (arrayRole[i])
                             {
-                                for (int k = 0; k < arrayLogin.Length; k++)
-                                {
-                                    Console.WriteLine("{0}: Login-{1}, Password-{2}",arrayRole[k],arrayLogin[k],arrayPassword[k]);
-                                }
-                            }
-                            else if (arrayRole[i] == "Moderator")
-                            {
-                                Console.WriteLine("{0} users", arrayLogin.Length);
-                            }
-                            else
-                            {
-                                int countUsers = 0;
-                                string loginUsers = "";
-
-                                for (int l = 0; l < arrayRole.Length; l++)
-                                {
-                                    if(arrayRole[l]== "User")
+                                case "Admin":
                                     {
-                                        countUsers++;
-                                        loginUsers += arrayLogin[l]+"; ";
+                                        for (int k = 0; k < arrayLogin.Length; k++)
+                                        {
+                                            Console.WriteLine("{0}: Login-{1}, Password-{2}", arrayRole[k], arrayLogin[k], arrayPassword[k]);
+                                        }
+                                    };
+                                    break;
+                                case "Moderator":
+                                    {
+                                        Console.WriteLine("{0} users", arrayLogin.Length);
+                                    };
+                                    break;
+                                default:
+                                    { 
+                                    int countUsers = 0;
+                                    string loginUsers = "";
+
+                                    for (int l = 0; l < arrayRole.Length; l++)
+                                    {
+                                        if (arrayRole[l] == "User")
+                                        {
+                                            countUsers++;
+                                            loginUsers += arrayLogin[l] + "; ";
+                                        }
                                     }
+                                    Console.WriteLine("{0} users: {1}", countUsers, loginUsers);
                                 }
-                                Console.WriteLine("{0} users: {1}", countUsers, loginUsers); 
+                                break;
                             }
                             break;
                         }
@@ -61,7 +65,6 @@ namespace Homework3_1
                         }
                     }
                 }
-             
             }
             Console.ReadKey();
         }
