@@ -118,6 +118,7 @@ namespace HomeWork6_1
                         case "3":
                             {
                                 //работа со списками
+                                MenuLists();
                             }
                             break;
                         case "4":
@@ -191,11 +192,91 @@ namespace HomeWork6_1
             }
 
         }
+        private void ShowGirlList()
+        {
+            if (Scouts.Count > 0)
+            {
+                
+                for (int i = 0; i < Scouts.Count; i++)
+                {
+                    if ( Scouts[i] is scoutGirl)
+                    {
+                        Console.WriteLine("{0}. {1,-15} Пол:{2}; ", i + 1, Scouts[i].scoutName, Scouts[i].scoutSex);
+                    }
+                    else
+                    {
+                        continue;
+                    } 
+                }
+            }
+            else
+            {
+                Console.Clear();
+                Console.WriteLine("Не добавленно не одного скаута\n Для возврата в меню нажмите любую клавишу");
+            }
+            Console.WriteLine("Для выхода из списка нажмите любую клавишу");
+            Console.ReadKey();
+        }
+        private void ShowBoyList()
+        {
+            if (Scouts.Count > 0)
+            {
+
+                for (int i = 0; i < Scouts.Count; i++)
+                {
+                    if (Scouts[i] is scoutBoy)
+                    {
+                        Console.WriteLine("{0}. {1,-15} Пол:{2}; ", i + 1, Scouts[i].scoutName, Scouts[i].scoutSex);
+                    }
+                    else
+                    {
+                        continue;
+                    }
+                }
+            }
+            else
+            {
+                Console.Clear();
+                Console.WriteLine("Не добавленно не одного скаута\n Для возврата в меню нажмите любую клавишу");
+            }
+            Console.WriteLine("Для выхода из списка нажмите любую клавишу");
+            Console.ReadKey();
+        }
         private void MenuLists()
         {
-            Console.WriteLine("1. Список всех скаутов\n2. Список скаутов мальчиков\n3. Список скаутов девочек");
-            Console.Write("Выберите один из списков:");
-
+            while (true)
+            {
+                Console.WriteLine("1. Список всех скаутов\n2. Список скаутов мальчиков\n3. Список скаутов девочек");
+                Console.Write("Выберите один из списков:");
+                string strItem = Console.ReadLine();
+                switch (strItem)
+                {
+                    case "1":
+                        {
+                            Console.Clear();
+                            ShowScoutsList();
+                        }
+                        break;
+                    case "2":
+                        {
+                            Console.Clear();
+                            ShowBoyList();
+                        }
+                        break;
+                    case "3":
+                        {
+                            Console.Clear();
+                            ShowGirlList();
+                        }
+                        break;
+                    default:
+                        {
+                            Console.WriteLine("Это не верное значение\nНажмиту любую клавишу");
+                            Console.ReadKey();
+                        }
+                        break;
+                }
+            }
         }
         //добавление спорта и награды
         //    private void AddSports()
