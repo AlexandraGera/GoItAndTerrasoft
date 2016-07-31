@@ -10,7 +10,7 @@ namespace HomeWork6_1
     {
         static void Main(string[] args)
         {
-
+            
             WorkWithScout Work = new WorkWithScout();
             Work.Menu();
             
@@ -26,59 +26,86 @@ namespace HomeWork6_1
        private int points;
        private int numberOfSports;
        private double averagePoint;
-        
-       public List<Scout> Scouts = new List<Scout>();
-        public Dictionary<String, Byte> SportAchievement = new Dictionary<String, Byte>{};
+     
+        List<Scout> Scouts = new List<Scout> {};
 
+        public List<Sport> SportsList = new List<Sport> {
+         new Sport() {nameSport= "Gymnastics"},
+         new Sport() {nameSport= "Athletics"},
+         new Sport() {nameSport= "Swimming"},
+         new Sport() {nameSport= "Dancing"}
+        };
+
+
+        public void ShowSportsAddRemove(List<Sport> SportList)
+       {
+         foreach (var item in SportList)
+         {
+           int count = 0;
+           if (item.onOf == true)
+           {
+            ++count;
+            Console.WriteLine("Виды спорта доступные для удаления:\n");
+            Console.WriteLine("{0}.{1}", count, item.nameSport);
+            }
+            else
+            {
+             ++count;
+             Console.WriteLine("Виды спорта доступные для добавления:\n");
+             Console.WriteLine("{0}.{1}", count, item.nameSport);   
+             }
+          }
+        }
+
+        public List<Sport> SportsAddRemove( List<Sport> SportList, int i)
+        {
+
+            if (SportList[i].onOf == false)
+            {
+                SportList[i].onOf = true;
+                Console.WriteLine("Вид спорта добавлен");
+            }
+            else
+            {
+                SportList[i].onOf = false;
+                Console.WriteLine("Вид спорта удален");
+            }
+            Console.WriteLine("Для возврата нажмите любую кнопку");
+            Console.ReadKey();
        
-
+            return SportList;
+        }
     }
 
 
     class scoutBoy : Scout
     {
-       public static String[] Sports = {
-           "Football",
-           "Arm wrestling",
-           "Basketball",
-           "Boxing"
-       };
-        public void ShowSports()
-        {
-            for (int i = 0; i < Sports.Length; i++)
-            {
-                Console.WriteLine("{0}.{1}", i + 1, Sports[i]);
-            }
-        }
+        public new List<Sport> SportsList = new List<Sport> {
+         new Sport() {nameSport= "Football"},
+         new Sport() {nameSport= "Arm wrestling"},
+         new Sport() {nameSport= "Basketball"},
+         new Sport() {nameSport= "Boxing"}
+        };
     }
 
 
     class scoutGirl : Scout
     {
-        public static String[] Sports = {
-           "Gymnastics",
-           "Athletics",
-           "Swimming",
-           "Dancing"
-       };
-        public void ShowSports()
-        {
-            for (int i = 0; i < Sports.Length; i++)
-            {
-                Console.WriteLine("{0}.{1}", i + 1, Sports[i]);
-            }
-        }
-
+         public new List<Sport> SportsList = new List<Sport> { 
+         new Sport() {nameSport= "Gymnastics"},
+         new Sport() {nameSport= "Athletics"},
+         new Sport() {nameSport= "Swimming"},
+         new Sport() {nameSport= "Dancing"}
+        };
     }
 
     class Sport
     {
         public string nameSport;
         public int pointSport;
-        //private int win;
-        //private int bestPlayer;
-        //private int courage;
-        //private int audienceSympathy;
+        public bool onOf = false;
+        
+        public Dictionary<String, Byte> SportAchievement = new Dictionary<String, Byte> { };
     }
 
     class WorkWithScout
@@ -106,18 +133,15 @@ namespace HomeWork6_1
                             {
                                 AddScout();
                                 ShowScoutsList();
-                                Console.ReadKey();
                             }
                             break;
                         case "2":
                             {
-                                //работа со спортом и наградами
-                                //AddSports();
+                                AddRemoveSports();
                             }
                             break;
                         case "3":
                             {
-                                //работа со списками
                                 MenuLists();
                             }
                             break;
@@ -191,6 +215,7 @@ namespace HomeWork6_1
                 Console.WriteLine("Не добавленно не одного скаута\n Для возврата в меню нажмите любую клавишу");
             }
 
+            Console.ReadKey();
         }
         private void ShowGirlList()
         {
@@ -244,11 +269,13 @@ namespace HomeWork6_1
         }
         private void MenuLists()
         {
-            while (true)
+            string strItem="";
+            while (strItem!="4")
             {
-                Console.WriteLine("1. Список всех скаутов\n2. Список скаутов мальчиков\n3. Список скаутов девочек");
+                Console.Clear();
+                Console.WriteLine("1. Список всех скаутов\n2. Список скаутов мальчиков\n3. Список скаутов девочек\n\n4.Выход");
                 Console.Write("Выберите один из списков:");
-                string strItem = Console.ReadLine();
+                strItem = Console.ReadLine();
                 switch (strItem)
                 {
                     case "1":
@@ -269,6 +296,8 @@ namespace HomeWork6_1
                             ShowGirlList();
                         }
                         break;
+                    case "4":
+                        break;
                     default:
                         {
                             Console.WriteLine("Это не верное значение\nНажмиту любую клавишу");
@@ -279,41 +308,62 @@ namespace HomeWork6_1
             }
         }
         //добавление спорта и награды
-        //    private void AddSports()
-        //    {
-        //        string strItem;
-        //        int intItem = 0;
-        //        while (true)
-        //        {
-        //            Console.Clear();
-        //            ShowScoutsList();
-        //            Console.Write("\nВыбирите скаута из списка:");
-        //            strItem = Console.ReadLine();
-        //            if ((Int32.TryParse(strItem, out intItem)&&(intItem < Scouts.Count)))
-        //            {
-        //                intItem = Convert.ToInt32(strItem);
-        //                --intItem;
-        //                if(Scouts[intItem] is scoutGirl)
-        //                {
-        //                    scoutGirl scoutGirl = new scoutGirl();
-        //                    scoutGirl.ShowSports();
-        //                    Console.Write("\nВыбирите спорт из списка:");
-        //                    strItem = Console.ReadLine();
-        //                    if ((Int32.TryParse(strItem, out intItem) && (intItem < scoutGirl.Sports.Length)))
-        //                    {
-        //                        object Person = Scouts[intItem];
-
-        //                        Console.ReadKey();
-        //                }
-        //            }
-        //            else
-        //            {
-        //                Console.WriteLine("Это не верное значение\nНажмиту любую клавишу");
-        //                Console.ReadKey();
-        //            }
-        //        }
-        //    }
-        //}
+            private void AddRemoveSports()
+        {
+            string strItem;
+            int intItem = 0;
+            while (true)
+            {
+                Console.Clear();
+                ShowScoutsList();
+                Console.Write("\nВыбирите скаута из списка:");
+                strItem = Console.ReadLine();
+                if ((Int32.TryParse(strItem, out intItem) && (intItem <= Scouts.Count)))
+                {
+                    intItem = Convert.ToInt32(strItem);
+                    --intItem;
+                    
+                    Scouts[intItem].ShowSportsAddRemove(Scouts[intItem].SportsList);
+                      
+                        Console.Write("\nВыбирите спорт из списка:");
+                        string strSportItem = Console.ReadLine();
+                        int intSportItem = 0;
+                        if ((Int32.TryParse(strSportItem, out intSportItem))&&(intSportItem>4))
+                        {
+                            intSportItem = Convert.ToInt32(strSportItem);
+                            --intSportItem;
+                        //Scouts[intItem].SportsList = Scouts[intItem].SportsAddRemove(Scouts[intItem].SportsList, intSportItem);
+                        foreach (var item in Scouts[intItem].SportsList)
+                        {
+                            int count = 0;
+                            if (item.onOf == true)
+                            {
+                                ++count;
+                                Console.WriteLine("Виды спорта доступные для удаления:\n");
+                                Console.WriteLine("{0}.{1}", count, item.nameSport);
+                            }
+                            else
+                            {
+                                ++count;
+                                Console.WriteLine("Виды спорта доступные для добавления:\n");
+                                Console.WriteLine("{0}.{1}", count, item.nameSport);
+                            }
+                        }
+                    }
+                        else
+                        {
+                            Console.WriteLine("Это не верное значение\nНажмиту любую клавишу");
+                            Console.ReadKey();
+                        }     
+                    }
+                else
+                {
+                    Console.WriteLine("Это не верное значение\nНажмиту любую клавишу");
+                    Console.ReadKey();
+                }
+                
+            }
+        }
     }
 }
 
