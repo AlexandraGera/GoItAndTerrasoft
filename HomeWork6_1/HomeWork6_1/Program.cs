@@ -29,36 +29,54 @@ namespace HomeWork6_1
      
         List<Scout> Scouts = new List<Scout> {};
 
-        public List<Sport> SportsList = new List<Sport> {
-         new Sport() {nameSport= "Gymnastics"},
-         new Sport() {nameSport= "Athletics"},
-         new Sport() {nameSport= "Swimming"},
-         new Sport() {nameSport= "Dancing"}
-        };
-
+        public void ShowSport(List<Sport> thisScout)
+        {
+            foreach (var item in thisScout)
+            {
+                if (item.onOf == true)
+                {
+                    Console.WriteLine("{0}. {1}", item.Id, item.nameSport);
+                }
+                else
+                {
+                    continue;
+                }
+            }
+        }
+       
 
         public void ShowSportsAddRemove(List<Sport> SportList)
        {
-         foreach (var item in SportList)
-         {
-           int count = 0;
+            Console.Clear();
+            Console.WriteLine("Виды спорта доступные для удаления:\n");
+            foreach (var item in SportList)
+            {
+                if (item.onOf == true)
+                {
+                    Console.WriteLine("{0}.{1}", item.Id, item.nameSport);
+                }
+                else
+                {
+                    continue;
+                }
+            }
+            Console.WriteLine("Виды спорта доступные для добавления:\n");
+            foreach (var item in SportList)
+            {
            if (item.onOf == true)
            {
-            ++count;
-            Console.WriteLine("Виды спорта доступные для удаления:\n");
-            Console.WriteLine("{0}.{1}", count, item.nameSport);
+                    continue;
             }
             else
             {
-             ++count;
-             Console.WriteLine("Виды спорта доступные для добавления:\n");
-             Console.WriteLine("{0}.{1}", count, item.nameSport);   
+             Console.WriteLine("{0}.{1}", item.Id, item.nameSport);   
              }
-          }
+            }
         }
 
         public List<Sport> SportsAddRemove( List<Sport> SportList, int i)
         {
+            Console.Clear();
 
             if (SportList[i].onOf == false)
             {
@@ -81,10 +99,10 @@ namespace HomeWork6_1
     class scoutBoy : Scout
     {
         public new List<Sport> SportsList = new List<Sport> {
-         new Sport() {nameSport= "Football"},
-         new Sport() {nameSport= "Arm wrestling"},
-         new Sport() {nameSport= "Basketball"},
-         new Sport() {nameSport= "Boxing"}
+         new Sport() {nameSport= "Football", Id=1},
+         new Sport() {nameSport= "Arm wrestling",Id=2},
+         new Sport() {nameSport= "Basketball",Id=3},
+         new Sport() {nameSport= "Boxing",Id=4}
         };
     }
 
@@ -92,20 +110,31 @@ namespace HomeWork6_1
     class scoutGirl : Scout
     {
          public new List<Sport> SportsList = new List<Sport> { 
-         new Sport() {nameSport= "Gymnastics"},
-         new Sport() {nameSport= "Athletics"},
-         new Sport() {nameSport= "Swimming"},
-         new Sport() {nameSport= "Dancing"}
+         new Sport() {nameSport= "Gymnastics", Id=1},
+         new Sport() {nameSport= "Athletics", Id=2},
+         new Sport() {nameSport= "Swimming", Id=3},
+         new Sport() {nameSport= "Dancing", Id=4}
         };
     }
 
     class Sport
     {
         public string nameSport;
+        public byte Id;
         public int pointSport;
         public bool onOf = false;
         
         public Dictionary<String, Byte> SportAchievement = new Dictionary<String, Byte> { };
+
+        public void ShowAchivment(Dictionary<String, Byte> Achivement)
+        {
+            int counter = 1;
+            foreach (KeyValuePair<String, Byte> item in Achivement)
+            {
+                Console.WriteLine("{0}. {1,-20} Баллы: {2}", counter, item.Value , item.Key);
+                counter++;
+            }
+        }
     }
 
     class WorkWithScout
@@ -214,24 +243,22 @@ namespace HomeWork6_1
                 Console.Clear();
                 Console.WriteLine("Не добавленно не одного скаута\n Для возврата в меню нажмите любую клавишу");
             }
-
-            Console.ReadKey();
         }
         private void ShowGirlList()
         {
             if (Scouts.Count > 0)
             {
-                
+
                 for (int i = 0; i < Scouts.Count; i++)
                 {
-                    if ( Scouts[i] is scoutGirl)
+                    if (Scouts[i] is scoutGirl)
                     {
                         Console.WriteLine("{0}. {1,-15} Пол:{2}; ", i + 1, Scouts[i].scoutName, Scouts[i].scoutSex);
                     }
                     else
                     {
                         continue;
-                    } 
+                    }
                 }
             }
             else
@@ -269,8 +296,8 @@ namespace HomeWork6_1
         }
         private void MenuLists()
         {
-            string strItem="";
-            while (strItem!="4")
+            string strItem = "";
+            while (strItem != "4")
             {
                 Console.Clear();
                 Console.WriteLine("1. Список всех скаутов\n2. Список скаутов мальчиков\n3. Список скаутов девочек\n\n4.Выход");
@@ -282,6 +309,7 @@ namespace HomeWork6_1
                         {
                             Console.Clear();
                             ShowScoutsList();
+                            Console.ReadKey();
                         }
                         break;
                     case "2":
@@ -308,7 +336,7 @@ namespace HomeWork6_1
             }
         }
         //добавление спорта и награды
-            private void AddRemoveSports()
+        private void AddRemoveSports()
         {
             string strItem;
             int intItem = 0;
@@ -322,46 +350,316 @@ namespace HomeWork6_1
                 {
                     intItem = Convert.ToInt32(strItem);
                     --intItem;
-                    
-                    Scouts[intItem].ShowSportsAddRemove(Scouts[intItem].SportsList);
-                      
+
+                    if (Scouts[intItem] is scoutGirl)
+                    {
+                        scoutGirl thisScout = Scouts[intItem] as scoutGirl;
+                        thisScout.ShowSportsAddRemove(thisScout.SportsList);
                         Console.Write("\nВыбирите спорт из списка:");
                         string strSportItem = Console.ReadLine();
                         int intSportItem = 0;
-                        if ((Int32.TryParse(strSportItem, out intSportItem))&&(intSportItem>4))
+                        if ((Int32.TryParse(strSportItem, out intSportItem)) && (intSportItem <= 4))
                         {
                             intSportItem = Convert.ToInt32(strSportItem);
                             --intSportItem;
-                        //Scouts[intItem].SportsList = Scouts[intItem].SportsAddRemove(Scouts[intItem].SportsList, intSportItem);
-                        foreach (var item in Scouts[intItem].SportsList)
-                        {
-                            int count = 0;
-                            if (item.onOf == true)
-                            {
-                                ++count;
-                                Console.WriteLine("Виды спорта доступные для удаления:\n");
-                                Console.WriteLine("{0}.{1}", count, item.nameSport);
-                            }
-                            else
-                            {
-                                ++count;
-                                Console.WriteLine("Виды спорта доступные для добавления:\n");
-                                Console.WriteLine("{0}.{1}", count, item.nameSport);
-                            }
+                            thisScout.SportsList = Scouts[intItem].SportsAddRemove(thisScout.SportsList, intSportItem);
+                            break;
                         }
-                    }
                         else
                         {
                             Console.WriteLine("Это не верное значение\nНажмиту любую клавишу");
                             Console.ReadKey();
-                        }     
+                        }
                     }
+                    else
+                    {
+                        scoutBoy thisScout = (Scouts[intItem] as scoutBoy);
+                        thisScout.ShowSportsAddRemove(thisScout.SportsList);
+                        Console.Write("\nВыбирите спорт из списка:");
+                        string strSportItem = Console.ReadLine();
+                        int intSportItem = 0;
+                        if ((Int32.TryParse(strSportItem, out intSportItem)) && (intSportItem <= 4))
+                        {
+                            intSportItem = Convert.ToInt32(strSportItem);
+                            --intSportItem;
+                            thisScout.SportsList = Scouts[intItem].SportsAddRemove(thisScout.SportsList, intSportItem);
+                            break;
+                        }
+
+                        else
+                        {
+                            Console.WriteLine("Это не верное значение\nНажмиту любую клавишу");
+                            Console.ReadKey();
+                        }
+                    }
+
+                }
                 else
                 {
                     Console.WriteLine("Это не верное значение\nНажмиту любую клавишу");
                     Console.ReadKey();
                 }
-                
+
+            }
+        }
+
+
+        //добавление награды
+
+        private void AddAchivment()
+        {
+            string strItem;
+            int intItem = 0;
+            while (true)
+            {
+                Console.Clear();
+                ShowScoutsList();
+                Console.Write("\nВыбирите скаута из списка:");
+                strItem = Console.ReadLine();
+                if ((Int32.TryParse(strItem, out intItem) && (intItem <= Scouts.Count)))
+                {
+                    intItem = Convert.ToInt32(strItem);
+                    --intItem;
+
+                    if (Scouts[intItem] is scoutGirl)
+                    {
+                        scoutGirl thisScout = Scouts[intItem] as scoutGirl;
+                        thisScout.ShowSport(thisScout.SportsList);
+                        Console.Write("\nВыбирите спорт из списка:");
+                        string strSportItem = Console.ReadLine();
+                        int intSportItem = 0;
+                        if ((Int32.TryParse(strSportItem, out intSportItem)) && (intSportItem <= 4))
+                        {
+                            intSportItem = Convert.ToInt32(strSportItem);
+                            --intSportItem;
+                            while (true)
+                            {
+                                Console.Clear();
+                                Console.WriteLine("Введите описание награды (до 50 знаков):");
+                                string achivmentName = Console.ReadLine();
+                                if (achivmentName.Length <= 50 && achivmentName.Length > 0)
+                                {
+                                    while (true)
+                                    {
+                                        Console.WriteLine("Введите колличество баллов (0-100):");
+                                        string achivmentPoint = Console.ReadLine();
+                                        byte intAchivmentPoint = 0;
+                                        if ((Byte.TryParse(achivmentPoint, out intAchivmentPoint)) && (intAchivmentPoint <= 100) && (intAchivmentPoint >= 0))
+                                        {
+                                            intAchivmentPoint = Convert.ToByte(achivmentPoint);
+                                            thisScout.SportsList[intSportItem].SportAchievement.Add(achivmentName, intAchivmentPoint);
+                                            Console.WriteLine("Награда добавлена");
+                                            Console.WriteLine("Нажмите любую клавишу");
+                                            Console.ReadKey();
+                                        }
+                                        else
+                                        {
+                                            continue;
+                                        }
+                                    }
+                                    break;
+                                }
+                                else
+                                {
+                                    continue;
+                                }
+
+                            }
+                            break;
+                        }
+                        else
+                        {
+                            Console.WriteLine("Это не верное значение\nНажмиту любую клавишу");
+                            Console.ReadKey();
+                        }
+                    }
+                    else
+                    {
+                        scoutBoy thisScout = (Scouts[intItem] as scoutBoy);
+                        thisScout.ShowSport(thisScout.SportsList);
+                        Console.Write("\nВыбирите спорт из списка:");
+                        string strSportItem = Console.ReadLine();
+                        int intSportItem = 0;
+                        if ((Int32.TryParse(strSportItem, out intSportItem)) && (intSportItem <= 4))
+                        {
+                            intSportItem = Convert.ToInt32(strSportItem);
+                            --intSportItem;
+                            while (true)
+                            {
+                                Console.Clear();
+                                Console.WriteLine("Введите описание награды (до 50 знаков):");
+                                string achivmentName = Console.ReadLine();
+                                if (achivmentName.Length <= 50 && achivmentName.Length > 0)
+                                {
+                                    while (true)
+                                    {
+                                        Console.WriteLine("Введите колличество баллов (0-100):");
+                                        string achivmentPoint = Console.ReadLine();
+                                        byte intAchivmentPoint = 0;
+                                        if ((Byte.TryParse(achivmentPoint, out intAchivmentPoint)) && (intAchivmentPoint <= 100) && (intAchivmentPoint >= 0))
+                                        {
+                                            intAchivmentPoint = Convert.ToByte(achivmentPoint);
+                                            thisScout.SportsList[intSportItem].SportAchievement.Add(achivmentName, intAchivmentPoint);
+                                            Console.WriteLine("Награда добавлена");
+                                            Console.WriteLine("Нажмите любую клавишу");
+                                            Console.ReadKey();
+                                        }
+                                        else
+                                        {
+                                            continue;
+                                        }
+                                    }
+                                    break;
+                                }
+                                else
+                                {
+                                    continue;
+                                }
+                            }
+                            break;
+                        }
+                        else
+                        {
+                            Console.WriteLine("Это не верное значение\nНажмиту любую клавишу");
+                            Console.ReadKey();
+                        }
+                    }
+                }
+                else
+                {
+                    Console.WriteLine("Это не верное значение\nНажмиту любую клавишу");
+                    Console.ReadKey();
+                }
+            }
+        }
+
+
+        //Удаление награды
+        private void RemoveAchivment()
+        {
+            string strItem;
+            int intItem = 0;
+            while (true)
+            {
+                Console.Clear();
+                ShowScoutsList();
+                Console.Write("\nВыбирите скаута из списка:");
+                strItem = Console.ReadLine();
+                if ((Int32.TryParse(strItem, out intItem) && (intItem <= Scouts.Count)))
+                {
+                    intItem = Convert.ToInt32(strItem);
+                    --intItem;
+
+                    if (Scouts[intItem] is scoutGirl)
+                    {
+                        scoutGirl thisScout = Scouts[intItem] as scoutGirl;
+                        thisScout.ShowSport(thisScout.SportsList);
+                        Console.Write("\nВыбирите спорт из списка:");
+                        string strSportItem = Console.ReadLine();
+                        int intSportItem = 0;
+                        if ((Int32.TryParse(strSportItem, out intSportItem)) && (intSportItem <= 4))
+                        {
+                            intSportItem = Convert.ToInt32(strSportItem);
+                            --intSportItem;
+                            while (true)
+                            {
+                                Console.Clear();
+                                thisScout.SportsList[intSportItem].ShowAchivment(thisScout.SportsList[intSportItem].SportAchievement);
+                                Console.WriteLine("Введите описание награды (до 50 знаков):");
+                                string achivmentName = Console.ReadLine();
+                                if (achivmentName.Length <= 50 && achivmentName.Length > 0)
+                                {
+                                    while (true)
+                                    {
+                                        Console.WriteLine("Введите колличество баллов (0-100):");
+                                        string achivmentPoint = Console.ReadLine();
+                                        byte intAchivmentPoint = 0;
+                                        if ((Byte.TryParse(achivmentPoint, out intAchivmentPoint)) && (intAchivmentPoint <= 100) && (intAchivmentPoint >= 0))
+                                        {
+                                            intAchivmentPoint = Convert.ToByte(achivmentPoint);
+                                            thisScout.SportsList[intSportItem].SportAchievement.Add(achivmentName, intAchivmentPoint);
+                                            Console.WriteLine("Награда добавлена");
+                                            Console.WriteLine("Нажмите любую клавишу");
+                                            Console.ReadKey();
+                                        }
+                                        else
+                                        {
+                                            continue;
+                                        }
+                                    }
+                                    break;
+                                }
+                                else
+                                {
+                                    continue;
+                                }
+
+                            }
+                            break;
+                        }
+                        else
+                        {
+                            Console.WriteLine("Это не верное значение\nНажмиту любую клавишу");
+                            Console.ReadKey();
+                        }
+                    }
+                    else
+                    {
+                        scoutBoy thisScout = (Scouts[intItem] as scoutBoy);
+                        thisScout.ShowSport(thisScout.SportsList);
+                        Console.Write("\nВыбирите спорт из списка:");
+                        string strSportItem = Console.ReadLine();
+                        int intSportItem = 0;
+                        if ((Int32.TryParse(strSportItem, out intSportItem)) && (intSportItem <= 4))
+                        {
+                            intSportItem = Convert.ToInt32(strSportItem);
+                            --intSportItem;
+                            while (true)
+                            {
+                                Console.Clear();
+                                Console.WriteLine("Введите описание награды (до 50 знаков):");
+                                string achivmentName = Console.ReadLine();
+                                if (achivmentName.Length <= 50 && achivmentName.Length > 0)
+                                {
+                                    while (true)
+                                    {
+                                        Console.WriteLine("Введите колличество баллов (0-100):");
+                                        string achivmentPoint = Console.ReadLine();
+                                        byte intAchivmentPoint = 0;
+                                        if ((Byte.TryParse(achivmentPoint, out intAchivmentPoint)) && (intAchivmentPoint <= 100) && (intAchivmentPoint >= 0))
+                                        {
+                                            intAchivmentPoint = Convert.ToByte(achivmentPoint);
+                                            thisScout.SportsList[intSportItem].SportAchievement.Add(achivmentName, intAchivmentPoint);
+                                            Console.WriteLine("Награда добавлена");
+                                            Console.WriteLine("Нажмите любую клавишу");
+                                            Console.ReadKey();
+                                        }
+                                        else
+                                        {
+                                            continue;
+                                        }
+                                    }
+                                    break;
+                                }
+                                else
+                                {
+                                    continue;
+                                }
+                            }
+                            break;
+                        }
+                        else
+                        {
+                            Console.WriteLine("Это не верное значение\nНажмиту любую клавишу");
+                            Console.ReadKey();
+                        }
+                    }
+                }
+                else
+                {
+                    Console.WriteLine("Это не верное значение\nНажмиту любую клавишу");
+                    Console.ReadKey();
+                }
             }
         }
     }
