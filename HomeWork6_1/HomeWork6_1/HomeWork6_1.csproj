@@ -45,6 +45,11 @@
   <ItemGroup>
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Scout.cs" />
+    <Compile Include="scoutBoy.cs" />
+    <Compile Include="scoutGirl.cs" />
+    <Compile Include="Sport.cs" />
+    <Compile Include="WorkWithScout.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
