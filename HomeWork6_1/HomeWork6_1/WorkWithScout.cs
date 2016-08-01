@@ -9,66 +9,8 @@ namespace HomeWork6_1
     class WorkWithScout
     {
         public List<Scout> Scouts = new List<Scout>();
-        //вывод основного меню
-
-        public void Menu()
-        {
-            string strItem;
-            int intItem = 0;
-            while (intItem != 6)
-            {
-                Console.Clear();
-                Console.WriteLine("\t МЕНЮ \n1. Добавить скаута\n2. Спорт\n3. Награды\n4. Списки скаутов\n5. Расчеты\n6. Выход");
-
-                Console.Write("\nВведите номер из меню "); ;
-                strItem = Console.ReadLine();
-                if (Int32.TryParse(strItem, out intItem))
-                {
-
-                    switch (strItem)
-                    {
-                        case "1":
-                            {
-                                AddScout();
-                                ShowScoutsList();
-                                Console.ReadKey();
-                            }
-                            break;
-                        case "2":
-                            {
-                                AddRemoveSports();
-                            }
-                            break;
-                        case "3":
-                            {
-
-                                MenuAchivment();
-                            }
-                            break;
-                        case "4":
-                            {
-                                MenuLists();
-                            }
-                            break;
-                        case "5":
-                            {
-                                MenuCalculate();
-                            }
-                            break;
-                        default:
-                            break;
-                    }
-                }
-                else
-                {
-                    Console.WriteLine("Это не верное значение\nНажмиту любую клавишу");
-                    Console.ReadKey(); ;
-                }
-            }
-        }
-
         //добавление нового скаута
-        private void AddScout()
+        protected void AddScout()
         {
             while (true)
             {
@@ -104,8 +46,9 @@ namespace HomeWork6_1
                 }
             }
         }
+
         //вывести список скаутов
-        private void ShowScoutsList()
+        protected void ShowScoutsList()
         {
             if (Scouts.Count > 0)
             {
@@ -120,7 +63,7 @@ namespace HomeWork6_1
                 Console.WriteLine("Не добавленно не одного скаута\n Для возврата в меню нажмите любую клавишу");
             }
         }
-        private void ShowGirlList()
+        protected void ShowGirlList()
         {
             if (Scouts.Count > 0)
             {
@@ -145,7 +88,7 @@ namespace HomeWork6_1
             Console.WriteLine("Для выхода из списка нажмите любую клавишу");
             Console.ReadKey();
         }
-        private void ShowBoyList()
+        protected void ShowBoyList()
         {
             if (Scouts.Count > 0)
             {
@@ -170,115 +113,9 @@ namespace HomeWork6_1
             Console.WriteLine("Для выхода из списка нажмите любую клавишу");
             Console.ReadKey();
         }
-        private void MenuLists()
-        {
-            string strItem = "";
-            while (strItem != "4")
-            {
-                Console.Clear();
-                Console.WriteLine("1. Список всех скаутов\n2. Список скаутов мальчиков\n3. Список скаутов девочек\n\n4.Выход");
-                Console.Write("Выберите один из списков:");
-                strItem = Console.ReadLine();
-                switch (strItem)
-                {
-                    case "1":
-                        {
-                            Console.Clear();
-                            ShowScoutsList();
-                            Console.ReadKey();
-                        }
-                        break;
-                    case "2":
-                        {
-                            Console.Clear();
-                            ShowBoyList();
-                        }
-                        break;
-                    case "3":
-                        {
-                            Console.Clear();
-                            ShowGirlList();
-                        }
-                        break;
-                    case "4":
-                        break;
-                    default:
-                        {
-                            Console.WriteLine("Это не верное значение\nНажмиту любую клавишу");
-                            Console.ReadKey();
-                        }
-                        break;
-                }
-            }
-        }
-
-        //меню ачивок
-        private void MenuAchivment()
-        {
-            string strItem = "";
-            while (strItem != "3")
-            {
-                Console.Clear();
-                Console.WriteLine("1.Добавить награду\n2. Удалить награду\n\n3.Выход");
-                Console.Write("Выберите действие:");
-                strItem = Console.ReadLine();
-                switch (strItem)
-                {
-                    case "1":
-                        {
-                            AddAchivment();
-                        }
-                        break;
-                    case "2":
-                        {
-                            RemoveAchivment();
-                        }
-                        break;
-                    case "3":
-                        break;
-                    default:
-                        {
-                            Console.WriteLine("Это не верное значение\nНажмиту любую клавишу");
-                            Console.ReadKey();
-                        }
-                        break;
-                }
-            }
-        }
-        private void MenuCalculate()
-        {
-            string strItem = "";
-            while (strItem != "3")
-            {
-                Console.Clear();
-                Console.WriteLine("1.Посмотреть средний балл скаута\n2. Посмотреть статистику\n\n3.Выход");
-                Console.Write("Выберите действие:");
-                strItem = Console.ReadLine();
-                switch (strItem)
-                {
-                    case "1":
-                        {
-                            ShowScoutsPoint();
-                        }
-                        break;
-                    case "2":
-                        {
-                            ShowCalculate();
-                        }
-                        break;
-                    case "3":
-                        break;
-                    default:
-                        {
-                            Console.WriteLine("Это не верное значение\nНажмиту любую клавишу");
-                            Console.ReadKey();
-                        }
-                        break;
-                }
-            }
-        }
+        
         //добавление спорта и награды
-        private void AddRemoveSports()
+        protected void AddRemoveSports()
         {
             string strItem;
             int intItem = 0;
@@ -351,7 +188,7 @@ namespace HomeWork6_1
         }
 
         //добавление награды
-        private void AddAchivment()
+        protected void AddAchivment()
         {
             string strItem;
             int intItem = 0;
@@ -490,7 +327,7 @@ namespace HomeWork6_1
         }
 
         //Удаление награды
-        private void RemoveAchivment()
+        protected void RemoveAchivment()
         {
             string strItem;
             int intItem = 0;
@@ -606,7 +443,7 @@ namespace HomeWork6_1
         }
 
         //расчеты
-        private void ShowScoutsPoint()
+        protected void ShowScoutsPoint()
         {
             string strItem;
             int intItem = 0;
@@ -634,7 +471,8 @@ namespace HomeWork6_1
             }
         }
 
-        private void ShowCalculate()
+        //показать расчеты
+        protected void ShowCalculate()
         {
 
             double k = 0;
@@ -685,7 +523,8 @@ namespace HomeWork6_1
             Console.ReadKey();
 
         }
-        public Scout CalculationBestScout(string sex)
+
+        private Scout CalculationBestScout(string sex)
         {
             Scout bestScout = null;
             double point = 0;
@@ -723,7 +562,7 @@ namespace HomeWork6_1
             return bestScout;
 
         }
-        public Scout CalculationBestScoutPoint(string sex)
+        private Scout CalculationBestScoutPoint(string sex)
         {
             Scout bestScout = null;
             int point = 0;
@@ -759,7 +598,7 @@ namespace HomeWork6_1
             }
             return bestScout;
         }
-        public Scout CalculationBestScoutSports(string sex)
+        private Scout CalculationBestScoutSports(string sex)
         {
             Scout bestScout = null;
             int sports = 0;
@@ -795,7 +634,7 @@ namespace HomeWork6_1
             }
             return bestScout;
         }
-        public Scout CalculationLazyScoutSports(string sex)
+        private Scout CalculationLazyScoutSports(string sex)
         {
             Scout lazyScout = null;
             int sports = 0;

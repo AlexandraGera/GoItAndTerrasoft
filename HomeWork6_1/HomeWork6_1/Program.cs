@@ -11,9 +11,9 @@ namespace HomeWork6_1
         static void Main(string[] args)
         {
             
-            WorkWithScout Work = new WorkWithScout();
-            Work.Menu();
-            
+            Menu Work = new Menu();
+            Work.ManeMenu();
+
             Console.ReadKey();
         }
     }
