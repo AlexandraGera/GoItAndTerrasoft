@@ -15,7 +15,7 @@ namespace HomeWork6_1
             while (true)
             {
                 Console.Clear();
-                Console.Write("Введите имя скаута");
+                Console.Write("Введите имя скаута  ");
                 string name = Console.ReadLine();
                 if (name.Length > 2)
                 {
@@ -67,17 +67,22 @@ namespace HomeWork6_1
         {
             if (Scouts.Count > 0)
             {
-
+                int count = 0;
                 for (int i = 0; i < Scouts.Count; i++)
                 {
                     if (Scouts[i] is scoutGirl)
                     {
                         Console.WriteLine("{0}. {1,-15} Пол:{2}; ", i + 1, Scouts[i].scoutName, Scouts[i].scoutSex);
+                        count++;
                     }
                     else
                     {
                         continue;
                     }
+                }
+                if (count==0)
+                {
+                    Console.WriteLine("Скаутов девочек нет в лагере\n");
                 }
             }
             else
@@ -92,17 +97,22 @@ namespace HomeWork6_1
         {
             if (Scouts.Count > 0)
             {
-
+                int count = 0;
                 for (int i = 0; i < Scouts.Count; i++)
                 {
                     if (Scouts[i] is scoutBoy)
                     {
                         Console.WriteLine("{0}. {1,-15} Пол:{2}; ", i + 1, Scouts[i].scoutName, Scouts[i].scoutSex);
+                        count++;
                     }
                     else
                     {
                         continue;
                     }
+                }
+                if (count == 0)
+                {
+                    Console.WriteLine("Скаутов мальчиков нет в лагере\n");
                 }
             }
             else

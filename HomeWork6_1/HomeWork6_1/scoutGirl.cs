@@ -8,7 +8,7 @@ namespace HomeWork6_1
 {
     class scoutGirl : Scout
     {
-        public new List<Sport> SportsList = new List<Sport> {
+        public List<Sport> SportsList = new List<Sport> {
          new Sport() {nameSport= "Gymnastics", Id=1},
          new Sport() {nameSport= "Athletics", Id=2},
          new Sport() {nameSport= "Swimming", Id=3},
