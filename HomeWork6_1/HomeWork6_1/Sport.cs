@@ -50,7 +50,13 @@ namespace HomeWork6_1
                 ++countAchievement;
                 i += item.Value;
             }
-            return average = i / countAchievement;
+            if (countAchievement == 0 || i == 0)
+            {
+                return 0;
+            }else
+            {
+                return average = i / countAchievement;
+            }
         }
     }
 }
