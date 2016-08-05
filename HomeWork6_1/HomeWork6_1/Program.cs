@@ -10,7 +10,7 @@ namespace HomeWork6_1
     {
         static void Main(string[] args)
         {
-            
+            Console.OutputEncoding = Encoding.GetEncoding(866);
             Menu Work = new Menu();
             Work.ManeMenu();
 
