@@ -6,15 +6,15 @@ using System.Threading.Tasks;
 
 namespace HomeWork7
 {
-    sealed class Trainee : IBonuses
+    sealed class Trainee :Employee
     {
-        Employee mentor;
-        public Trainee(Employee mentor)
+        public Employee mentor;
+        public Trainee(Employee mentorArg)
         {
-            this.mentor = mentor;
+            this.mentor = mentorArg;
         }
-        public int bonusHours { get; set; }
-        public void CalculationBonuses()
+        public new int bonusHours { get; set; }
+        public override void CalculationBonuses()
         {
             mentor.salaryTotal += bonusHours * 1.5 * mentor.salaryInHour;
         }

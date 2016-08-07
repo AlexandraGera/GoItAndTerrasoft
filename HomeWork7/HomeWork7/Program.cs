@@ -11,9 +11,8 @@ namespace HomeWork7
         static void Main(string[] args)
         {
             Console.OutputEncoding = Encoding.GetEncoding(866);
-
-            List<Employee> Employee = new List<Employee>();
-            List<Trainee> Trainee = new List<Trainee>();
+            Menu menu = new Menu();
+            menu.MainMenu();
         }
     }
 }

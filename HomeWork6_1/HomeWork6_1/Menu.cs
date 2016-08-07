@@ -52,13 +52,15 @@ namespace HomeWork6_1
                             }
                             break;
                         default:
-                            break;
+                            Console.WriteLine("Это не верное значение\nНажмиту любую клавишу");
+                            Console.ReadKey();
+                            continue;
                     }
                 }
                 else
                 {
                     Console.WriteLine("Это не верное значение\nНажмиту любую клавишу");
-                    Console.ReadKey(); ;
+                    Console.ReadKey(); 
                 }
             }
         }
