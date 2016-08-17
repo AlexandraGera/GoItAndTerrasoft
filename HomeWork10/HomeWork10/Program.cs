@@ -68,7 +68,7 @@ namespace HomeWork10
         public void InputOperators()
         {
             Console.Clear();
-            Console.WriteLine("/tВыберите опреаторы, которые нужно применить к числам(введите индексы операторов без пробела)\n" );
+            Console.WriteLine("\tВыберите опреаторы, которые нужно применить к числам(введите индексы операторов без пробела)\n" );
             Console.WriteLine("1. +\n2. -\n3. /\n4. *");
             string strOperators = Console.ReadLine();
             char[] operators = strOperators.ToCharArray();
