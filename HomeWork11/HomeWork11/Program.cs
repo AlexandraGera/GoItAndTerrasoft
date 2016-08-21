@@ -96,7 +96,7 @@ namespace HomeWork11
                     }
                     else
                     {
-                        Console.WriteLine("Ввод не верный\nНажмите любую клавишу...");
+                        Console.WriteLine("Ввод неверный\nНажмите любую клавишу...");
                         Console.ReadLine();
                         continue;
                     }
