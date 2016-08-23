@@ -101,7 +101,7 @@ namespace HomeWork11
                         continue;
                     }
                 }
-                writeInfo?.Invoke();
+                if (writeInfo != null) writeInfo();
             }
         }
     }
